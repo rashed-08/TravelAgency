@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
     private final LocationRepository locationRepository;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, UserRepository userRepository, LocationServiceImpl locationService, LocationRepository locationRepository) {
+    public PostServiceImpl(PostRepository postRepository, UserRepository userRepository,LocationRepository locationRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.locationRepository = locationRepository;
@@ -31,34 +31,21 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void createPost(Posts post) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (post.getPrivacy().equals("private")) {
-            post.setPublic(false);
-        }
-        int locationId = Integer.parseInt(post.getLocation());
-        Location location = locationRepository.findById(locationId);
-        post.setLocation(location.getLocation());
-        String username  = authentication.getName();
-        User user = userRepository.findByUsername(username);
-        post.setFirstName(user.getFirstName());
-        post.setLastName(user.getLastName());
-        post.setUser(user);
-        postRepository.save(post);
+        validatePostData(post);
     }
 
     @Override
     public List<Posts> getAllPosts() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username  = authentication.getName();
-        User user = userRepository.findByUsername(username);
-        List<Posts> getAllPost = postRepository.findByUserId(user.getId());
-        return getAllPost;
-
-//        List<Posts> getAllPosts = postRepository.findAll();
-//        if (getAllPosts != null) {
-//            return getAllPosts;
-//        }
-//        return null;
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username  = authentication.getName();
+            User user = userRepository.findByUsername(username);
+            List<Posts> getAllPost = postRepository.findByUserId(user.getId());
+            return getAllPost;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Posts> getAllPublicPost(boolean isPublic) {
@@ -72,9 +59,37 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Optional<Posts> updatePost(int id) {
-//        Optional<Posts> posts = postRepository.findById(id);
+    public Posts getPost(int id) {
+        try {
+            Posts posts = postRepository.findById(id).get();
+            if (posts != null) {
+                return posts;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
+    }
+
+    @Override
+    public void updatePost(Posts posts) {
+        validatePostData(posts);
+    }
+
+    public void validatePostData(Posts post) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (post.getPrivacy().equals("private")) {
+            post.setPublic(false);
+        }
+        int locationId = Integer.parseInt(post.getLocation());
+        Location location = locationRepository.findById(locationId);
+        post.setLocation(location.getLocation());
+        String username  = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        post.setFirstName(user.getFirstName());
+        post.setLastName(user.getLastName());
+        post.setUser(user);
+        postRepository.save(post);
     }
 
 }

@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.RespectBinding;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,9 +72,8 @@ public class HomeController {
 
     @RequestMapping(path = "/post")
     public String showPost(Model model) {
-        List<Location> getAllLocation = locationService.getAllLocation();
         model.addAttribute("post", new Posts());
-        model.addAttribute("locations", getAllLocation);
+        model.addAttribute("locations", getAllLocation());
         return "post";
     }
 
@@ -90,9 +87,29 @@ public class HomeController {
     }
 
     @RequestMapping(path = "/update/{id}", method = RequestMethod.GET)
-    public String updatePost(@RequestParam("id") Integer id, Model model) {
-        Optional<Posts> post = postService.updatePost(id);
-        model.addAttribute("post", post);
+    public String updatePost(@PathVariable("id") int id, Model model) {
+        Posts post = postService.getPost(id);
+        model.addAttribute("locations", getAllLocation());
+        model.addAttribute("posts", post);
+        return "update";
+    }
+
+    @RequestMapping(path = "/update/post", method = RequestMethod.POST)
+    public String saveUpdatePost(@ModelAttribute Posts posts, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "redirect:/post";
+        }
+        postService.updatePost(posts);
         return "redirect:/profile";
+    }
+
+    @RequestMapping(path = "/about")
+    public String about() {
+        return "about";
+    }
+
+    private List<Location> getAllLocation() {
+        List<Location> getAllLocation = locationService.getAllLocation();
+        return getAllLocation;
     }
 }

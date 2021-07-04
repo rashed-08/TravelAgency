@@ -18,8 +18,9 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"
-                    th:classappend="${#httpServletRequest.getRequestURI() == '/index' ? 'active':''}">
-                    <a class="nav-link" th:href="@{/index}">Home <span
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/index' ? 'active':''}"
+                    sec:authorize="hasRole('USER')">
+                    <a class="nav-link" th:href="@{/index}" >Home <span
                             class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -35,7 +36,8 @@
                                                        th:href="@{/post}">Post</a></li>
 
                 <li class="nav-item"
-                    th:classappend="${#httpServletRequest.getRequestURI() == '/about' ? 'active':''}">
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/about' ? 'active':''}"
+                    sec:authorize="!isAuthenticated()">
                     <a class="nav-link" th:href="@{/about}">About us</a>
                 </li>
             </ul>

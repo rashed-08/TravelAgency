@@ -11,11 +11,10 @@
     <div class="jumbotron">
         <div th:each="post:${posts}">
             <p><i class="fa fa-user" aria-hidden="true"></i> <span th:text="${post.getFirstName()} "></span><span th:text="${post.getLastName()}"></span></p>
-            <p th:text="${post.getStatus()}"></p>
-            <p th:text="${post.getLocation()}"></p>
-
+            <p><i class="fa fa-edit" aria-hidden="true"></i><span th:text="${post.getStatus()}"></span></p>
+            <p><i class="fa fa-location-arrow" aria-hidden="true"></i><span th:text="${post.getLocation()}"></span></p>
+            <hr>
         </div>
-        <hr>
     </div>
 </main>
 

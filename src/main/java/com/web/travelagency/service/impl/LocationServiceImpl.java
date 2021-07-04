@@ -18,10 +18,15 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public List<Location> getAllLocation() {
-        List<Location> getAllLocation = locationRepository.findAll();
-        if (!getAllLocation.isEmpty()) {
-            return locationRepository.findAll();
+        try {
+            List<Location> getAllLocation = locationRepository.findAll();
+            if (!getAllLocation.isEmpty()) {
+                return locationRepository.findAll();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return null;
     }
 }

@@ -9,5 +9,6 @@ public interface PostService {
     void createPost(Posts post);
     List<Posts> getAllPosts();
     List<Posts> getAllPublicPost(boolean isPublic);
-    Optional<Posts> updatePost(int id);
+    Posts getPost(int id);
+    void updatePost(Posts posts);
 }

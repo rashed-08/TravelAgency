@@ -11,10 +11,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">New Posts</div>
+                    <div class="card-header">Update Posts</div>
                     <div class="card-body">
                         <form class="form-horizontal m-5"
-                              th:action="@{/post}" th:object="${post}"
+                              th:action="@{/update/post}" th:object="${posts}"
                               method="post">
                             <legend>New Post</legend>
                             <!-- Text input-->
@@ -22,6 +22,7 @@
                                 <label class="col-md-4 col-form-label text-md-right" for="status">Status</label>
                                 <div class="col-md-6">
                                     <input id="status" name="status" type="text"
+                                           th:value="${posts.status}"
                                            th:field="*{status}" placeholder=""
                                            class="form-control input-md" required="">
 
@@ -34,11 +35,11 @@
                                     <label class="radio-inline" for="public" th:text="Public">
                                         Public
                                     </label>
-                                    <input type="radio" id="public" name="public" class="" value="public" th:field="*{privacy}" checked="checked" >
+                                    <input type="radio" id="public" name="public" class="" value="public" th:value="${posts.privacy}" th:field="*{privacy}" checked="checked" >
                                     <label class="radio-inline" for="private" th:text="Private">
                                         Private
                                     </label>
-                                    <input type="radio" id="private" name="private" class="" value="private" th:field="*{privacy}">
+                                    <input type="radio" id="private" name="private" class="" value="private" th:value="${posts.privacy}" th:field="*{privacy}">
                                 </div>
                             </div>
 
@@ -59,7 +60,7 @@
                                 <label class="col-md-4 control-label" for="submit"></label>
                                 <div class="col-md-6 offset-md-4">
                                     <button id="submit" name="submit" class="btn btn-success">Submit</button>
-                                    <a id="back" href="@{/home}" class="btn btn-warning">Back
+                                    <a id="back" th:href="@{/home}" class="btn btn-warning">Back
                                         to home</a>
                                 </div>
                             </div>
