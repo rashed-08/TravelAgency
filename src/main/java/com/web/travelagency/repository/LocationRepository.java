@@ -1,0 +1,10 @@
+package com.web.travelagency.repository;
+
+import com.web.travelagency.model.Location;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface LocationRepository extends JpaRepository<Location, Integer> {
+    Location findById(int id);
+}

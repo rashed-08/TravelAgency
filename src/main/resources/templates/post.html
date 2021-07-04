@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header.html :: header">
+    <meta charset="UTF-8">
+    <title id="pageTitle">New Post</title>
+</head>
+<body>
+<div th:replace="fragments/navbar.html :: navbar"></div>
+<div class="container">
+    <main class="login-form">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">New Posts</div>
+                    <div class="card-body">
+                        <form class="form-horizontal m-5"
+                              th:action="@{/post}" th:object="${post}"
+                              method="post">
+                            <legend>New Post</legend>
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right" for="status">Status</label>
+                                <div class="col-md-6">
+                                    <input id="status" name="status" type="text"
+                                           th:field="*{status}" placeholder=""
+                                           class="form-control input-md" required="">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right control-label" for="location">Choose Privacy</label>
+                                <div class="col-md-4" id="privacy">
+                                    <label class="radio-inline" for="public" th:text="Public">
+                                        Public
+                                    </label>
+                                    <input type="radio" id="public" name="public" class="" value="public" th:field="*{privacy}" checked="checked" >
+                                    <label class="radio-inline" for="private" th:text="Private">
+                                        Private
+                                    </label>
+                                    <input type="radio" id="private" name="private" class="" value="private" th:field="*{privacy}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right control-label" for="location">Location</label>
+                                <div class="col-md-4">
+                                    <select id="location" name="location" class="form-control">
+                                        <option value="">Select Location</option>
+                                        <option th:each="location : ${locations}"
+                                                th:value="${location.id}"
+                                                th:text="${location.location}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Button (Double) -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="submit"></label>
+                                <div class="col-md-6 offset-md-4">
+                                    <button id="submit" name="submit" class="btn btn-success">Submit</button>
+                                    <a id="back" href="@{/home}" class="btn btn-warning">Back
+                                        to home</a>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<div th:replace="~{fragments/footer.html :: footer}"></div>
+</body>
+</html>

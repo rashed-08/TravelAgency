@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header.html :: header">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Profile</title>
+</head>
+<body>
+<div th:replace="fragments/navbar.html :: navbar"></div>
+
+<main role="main" class="container">
+    <div class="jumbotron">
+        <div th:each="post:${posts}">
+            <p><span th:text="${post.getFirstName()}"></span><span th:text="${post.getLastName()}"></span></p>
+            <p th:text="${post.getStatus()}"></p>
+            <p th:text="${post.getLocation()}"></p>
+            <p th:value="${post.getId()}"><a th:href="@{'/update/' + ${post.getId()}}" class="btn btn-primary">Edit Post</a></p>
+        </div>
+        <hr>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer.html :: footer}"></div>
+</body>
+</html>
