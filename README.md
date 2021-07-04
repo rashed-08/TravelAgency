@@ -17,3 +17,11 @@
 * Individual user can see their all post **Profile** page
 * If need to **edit** post, click edit button in **Profile**
 * User can view all public status in **Home** page
+
+![Tra](https://github.com/rashed-08/TravelAgency/blob/master/src/main/resources/static/image/TravelAgency_ER.PNG) \
+![home](https://user-images.githubusercontent.com/41707235/124381205-fe2cca80-dce2-11eb-8eaf-c8129279fafe.PNG) \
+![alt text](https://github.com/rashed-08/TravelAgency/blob/master/src/main/resources/static/image/login.PNG) \
+![alt text](https://github.com/rashed-08/TravelAgency/blob/master/src/main/resources/static/image/create_post.PNG) \
+![alt text](https://github.com/rashed-08/TravelAgency/blob/master/src/main/resources/static/image/update_post.PNG) \
+![alt text](https://github.com/rashed-08/TravelAgency/blob/master/src/main/resources/static/image/user_all_post.PNG) \
+
